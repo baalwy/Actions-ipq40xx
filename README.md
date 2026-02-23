@@ -17,6 +17,43 @@ A template for building OpenWrt with GitHub Actions
 - Click the `Run workflow` button.
 - When the build is complete, click the `Artifacts` button in the upper right corner of the Actions page to download the binaries.
 
+## Using with VSCode
+
+You can use [Visual Studio Code](https://code.visualstudio.com/) to edit and manage this repository locally before pushing changes to trigger the GitHub Actions build.
+
+### Getting Started
+
+1. **Clone the repository**
+   Open a terminal in VSCode (`` Ctrl+` ``) and run:
+   ```bash
+   git clone https://github.com/<your-username>/Actions-ipq40xx.git
+   ```
+   Then open the cloned folder in VSCode via **File > Open Folder**.
+
+2. **Edit configuration files**
+   - **`.config`** — Define your OpenWrt build configuration (target device, packages, etc.). You can generate this file by running `make menuconfig` in a local OpenWrt source tree, then copy the resulting `.config` here.
+   - **`diy-part1.sh`** — Add or modify feed sources (runs before `./scripts/feeds update`).
+   - **`diy-part2.sh`** — Apply additional customizations such as default IP, theme, or hostname (runs after `./scripts/feeds install`).
+
+3. **Push changes and trigger a build**
+   After editing, commit and push your changes using the VSCode Source Control panel or the terminal:
+   ```bash
+   git add .
+   git commit -m "Update firmware configuration"
+   git push
+   ```
+
+4. **Run the build workflow**
+   - Go to your repository on GitHub and navigate to the **Actions** tab.
+   - Select **Build OpenWrt** and click **Run workflow**.
+   - Once the build completes, download the firmware from **Artifacts** or **Releases**.
+
+### Recommended VSCode Extensions
+
+- [YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) — Syntax highlighting for workflow files.
+- [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck) — Linting for the DIY shell scripts.
+- [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) — Enhanced Git integration.
+
 ## Tips
 
 - It may take a long time to create a `.config` file and build the OpenWrt firmware. Thus, before create repository to build your own firmware, you may check out if others have already built it which meet your needs by simply [search `Actions-Openwrt` in GitHub](https://github.com/search?q=Actions-openwrt).
